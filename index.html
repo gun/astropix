@@ -1,0 +1,38 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    function dosearch(){
+       $("#results").html("fetching...");
+       $.ajax({
+            url: "/search",
+            data: {"search":$("#searchbox").val()},
+            dataType: 'json',
+            type: 'GET',
+            headers: { "Cache-Control": "no-cache" },
+            success: function(results){
+                $("#results").html("");
+                for(var i in results){
+                    $("#results").append('<a href="'+results[i].link+'" target="_blank"><img height="48px;" src="'+results[i].img+'"/></a>');
+                }
+            },
+            error: function(req, status, err){
+                ;
+            }
+        });
+    }
+</script>	
+</head>
+
+<body>
+<div>
+astropix search:<br/>
+<input type="text" id="searchbox" /> <a href="javascript:;" onclick="dosearch()">search</a>
+</div>
+
+<div id="results" style="float:left;">
+</div>
+</body>
+
+</html>
